@@ -25,3 +25,6 @@ dist-ssr
 *.zip
 ._*
 .env
+.lock
+yarn-error.log
+pnpm-lock.yaml
