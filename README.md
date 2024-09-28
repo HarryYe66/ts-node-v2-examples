@@ -1,8 +1,8 @@
-# PiWar Click Game Api
+# ts-node-v2-examples
 
 ## 介绍
 
-一个简单的点击游戏，使用 Node+TypeScript+Express+Mysql+Redis+RabbitMQ 实现开发
+使用 Node+TypeScript+Express+Mysql+Redis+RabbitMQ 实现开发
 
 ## 准备环境
 
@@ -122,6 +122,9 @@ yarn wssever
 
 
 ```
+
 # memes-api
+
 # ts-node-v2-examples
+
 # ts-node-v2-examples
