@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "baseUrl": ".", // 新增此行
+    "types": [
+      "node",
+      "express",
+      "./types/express.d.ts" // 确保引入了自定义的声明文件路径
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ] // 新增此行
+    }
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*.ts",
+    "types/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
