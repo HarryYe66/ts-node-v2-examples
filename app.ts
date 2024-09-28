@@ -1,14 +1,12 @@
+import './src/utils/dotenv'
 import express, { Request, Response, NextFunction } from 'express'
-import './config/dotenv'
-
 import cors from 'cors'
 import path from 'path'
 import http from 'http'
 import consumeMessages from './src/RabbitMQ/sever'
 import rateLimit from 'express-rate-limit'
 
-const expressPort = 3011
-const websocketPort = 3012
+const expressPort = process.env.PORT || 3011
 
 const app = express()
 const server = http.createServer(app)
