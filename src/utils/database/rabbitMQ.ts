@@ -1,5 +1,6 @@
 // import amqp from 'amqplib'
-import { config } from '../../config/config'
+import './dotenv'
+
 import amqp, { Channel, Connection, Message } from 'amqplib'
 
 class RabbitMQManager {
@@ -10,8 +11,9 @@ class RabbitMQManager {
   private reconnectTimeout: NodeJS.Timeout | null = null
 
   constructor(
-    private queueName: string = config.sitename, // 使用默认值
-    private amqpUrl: string = config.amqp.host // 使用默认值
+    private queueName: string = process.env.SITE_NAME || 'default_queue', // 使用默认值
+    private amqpUrl: string = process.env.RABBITMQ_URL ||
+      'amqp://localhost:5672' // 使用默认值
   ) {}
 
   // 连接到 RabbitMQ

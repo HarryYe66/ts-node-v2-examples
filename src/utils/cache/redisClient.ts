@@ -1,15 +1,14 @@
 import Redis from 'ioredis'
-import { config } from '../../config/config'
 
-const redisConfig = {
-  host: config.redis.host,
-  port: 6379, // 默认 Redis 端口
-  password: config.redis.password,
+const redisConfig: any = {
+  host: process.env.REDIS_HOST || '127.0.0.1',
+  port: process.env.REDIS_PORT || 6379, // 默认 Redis 端口
+  password: process.env.REDIS_PASSWORD || '',
 }
 
 const client = new Redis(redisConfig)
 
-const keynames: string = `${config.sitename}-PiWar-`
+const keynames: string = `${process.env.SITE_NAME}-`
 export const keyfix = {
   //默认使用UserInfoT 的user_id
   Auth: `${keynames}AUTH:`, //用户认证信息

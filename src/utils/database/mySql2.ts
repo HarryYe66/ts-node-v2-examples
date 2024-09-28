@@ -1,13 +1,14 @@
+import './dotenv'
+
 import TransportStream, { TransportStreamOptions } from 'winston-transport'
 import mysql from 'mysql2/promise'
-import { config } from '../../config/config'
 
 // MySQL 连接池配置
 const mysqlConfig = {
-  host: config.db.host,
-  user: config.db.user,
-  password: config.db.password,
-  database: config.db.database,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 5000,
   queueLimit: 0,
@@ -15,25 +16,6 @@ const mysqlConfig = {
 
 // 创建连接池
 const pool = mysql.createPool(mysqlConfig)
-
-// 批量插入函数
-async function bulkInsert(operations: any) {
-  if (operations.length === 0) return
-
-  const sql =
-    'INSERT INTO user_operations (user_id, clicks, timestamp) VALUES ?'
-  const values = operations.map((op: any) => [
-    op.userId,
-    op.clicks,
-    op.timestamp,
-  ])
-
-  try {
-    await pool.query(sql, [values])
-  } catch (err) {
-    console.error('Database bulk insert error:', err)
-  }
-}
 
 interface MySQLTransportOptions extends TransportStreamOptions {
   table: string
@@ -47,7 +29,7 @@ class MySQLTransport extends TransportStream {
   constructor(opts: MySQLTransportOptions) {
     super(opts)
     this.pool = pool
-    this.table = config.db.transportname
+    this.table = opts.table
     this.createTableIfNeeded()
   }
 
@@ -87,4 +69,4 @@ class MySQLTransport extends TransportStream {
   }
 }
 
-export { pool, bulkInsert, MySQLTransport }
+export { pool, MySQLTransport }
