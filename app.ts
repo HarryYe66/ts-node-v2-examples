@@ -6,6 +6,8 @@ import http from 'http'
 import consumeMessages from './src/RabbitMQ/sever'
 import rateLimit from 'express-rate-limit'
 
+import adminRouter from './src/apis/admin/account'
+
 const expressPort = process.env.PORT || 3011
 
 const app = express()
@@ -26,6 +28,9 @@ app.use(
     credentials: true, // 允许请求携带凭证
   })
 )
+
+app.use(express.json())
+app.use('/v2/admin', adminRouter)
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack)
